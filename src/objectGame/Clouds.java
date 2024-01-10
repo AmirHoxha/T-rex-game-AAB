@@ -1,15 +1,19 @@
 package objectGame;
 
+import UI.GameScreen;
 import util.Resource;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import static UI.GameScreen.score;
 
 public class Clouds {
     private BufferedImage cloudImage;
     private List<Cloud> clouds;
+    public static int posXMultiplier = 1;
+    private boolean scoreIncreased = false;
 
     public Clouds(){
         cloudImage = Resource.getResourceImage("images/cloud.PNG");
@@ -42,16 +46,29 @@ public class Clouds {
 
     }
 
-    public void update(){
-        for(Cloud cloud : clouds){
-            cloud.posX--;
+    public void update() {
+        for (Cloud cloud : clouds) {
+            cloud.posX -= posXMultiplier;
         }
+
         Cloud firstCloud = clouds.get(0);
-        if(firstCloud.posX + cloudImage.getWidth() < 0){
+
+        if (firstCloud.posX + cloudImage.getWidth() < 0) {
             firstCloud.posX = 600;
             clouds.remove(firstCloud);
             clouds.add(firstCloud);
         }
+
+        if (score >= 100 && (score - 100) % 100 == 0 && !scoreIncreased) {
+            posXMultiplier++;
+            scoreIncreased = true;
+        }else if(score == 0){
+            posXMultiplier = 1;
+        }
+        if ((score - 100) % 100 != 0) {
+            scoreIncreased = false;
+        }
+
     }
 
     public void draw(Graphics g){

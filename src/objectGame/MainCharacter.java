@@ -34,13 +34,14 @@ public class MainCharacter {
         if(y >= GROUNDY - characterRun.getFrame().getHeight()){
             speedY = 0;
             y = GROUNDY - characterRun.getFrame().getHeight();
+            //The characters vertical position is adjusted to be exactly on the ground level.
             allowToJump = true;
             //If dino is on the ground allow to  jump
         }else{
             // This means the dino is in the air so jumping
             speedY += GRAVITY;
             y += speedY;
-            System.out.println("In the else");
+            //The character's vertical position is updated based on the calculated speed, making it move downward
             // So when the dino is on the air we don't allow it to jump again it should only jump when it's on the ground
             allowToJump = false;
         }
@@ -62,7 +63,6 @@ public class MainCharacter {
         if(allowToJump){
             speedY = -4;
             y += speedY;
-            System.out.println(y);
         }
     }
 

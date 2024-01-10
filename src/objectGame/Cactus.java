@@ -1,11 +1,10 @@
 package objectGame;
-
-import org.w3c.dom.css.Rect;
 import util.Resource;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
+
+import static objectGame.Clouds.posXMultiplier;
 
 public class Cactus extends Enemy {
     private BufferedImage image;
@@ -23,7 +22,7 @@ public class Cactus extends Enemy {
     }
 
     public void update(){
-        posX -= 2;
+        posX -= posXMultiplier + 1;
         rect.x = posX;
         rect.y = posY;
         rect.width = image.getWidth();

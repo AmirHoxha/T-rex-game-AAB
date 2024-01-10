@@ -27,8 +27,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     private int gameState = GAME_FIRST_STATE;
     private BufferedImage imageGameOverText;
     private BufferedImage playAgainBtn;
-    private int score;
-    private boolean isJumping = false;
+    public static int score;
     private Cactus cactus;
     public GameScreen(){
         thread = new Thread(this);
@@ -79,6 +78,9 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     public void plusScore(int score){
         this.score += score;
     }
+    public void setScore(int score){
+        this.score = score;
+    }
 
     @Override
     public void paint(Graphics g){
@@ -94,7 +96,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
                 land.draw(g);
                 mainCharacter.draw(g);
                 enemyManager.draw(g);
-                g.drawString("HI Score " + String.valueOf(score), 500, 25);
+                g.drawString("Score " + String.valueOf(score), 500, 25);
                 break;
             case GAME_OVER_STATE:
                 clouds.draw(g);
@@ -124,22 +126,14 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 
     }
 
-    public void setJumping(boolean jumping) {
-        this.isJumping = jumping;
-    }
-
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println(cactus.isOver());
         switch(e.getKeyCode()){
             case KeyEvent.VK_SPACE:
                 if(gameState == GAME_FIRST_STATE){
                     gameState = GAME_PLAY_STATE;
                 }else if(gameState == GAME_PLAY_STATE){
                     mainCharacter.jump(e);
-                    System.out.println(mainCharacter.getY());
-                    System.out.println(cactus.isOver());
-                    isJumping = true; // Set jumping to true when the character starts jumping
                 }else if(gameState == GAME_OVER_STATE){
                     resetGame();
                     gameState = GAME_PLAY_STATE;

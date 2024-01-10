@@ -38,6 +38,7 @@ public class EnemyManager {
             }
             if(e.getBound().intersects(mainCharacter.getBound())){
                 mainCharacter.setAlive(false);
+                gameScreen.setScore(0);
             }
         }
         Enemy firstEnemy = enemies.get(0);
